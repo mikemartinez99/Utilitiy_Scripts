@@ -1,5 +1,10 @@
 # Utilitiy_Scripts
-Helpful day to day utilities
+🛠️ Helpful day to day utilities that tie into GDSC-Pipelines and make life easier!
+
+## Table of Contents
+- [Sample Sheet Generation](#sample-sheet-generation)
+- [Fastqc Runs](#fastqc-runs)
+
 
 ## Sample Sheet Generation
 The [sample sheet generation folder](https://github.com/mikemartinez99/Utilitiy_Scripts/tree/main/sample_sheet_generation) contains two scripts that work in conjunction with one another:
@@ -27,6 +32,7 @@ mv <some_file.xlsx` metadata.xlsx
 ```
 
 **If on discovery, polaris, or andes, follow steps 3A. If local, skip to step 4**
+
 3A. If on discovery, activate the conda environment with all R dependencies
 ```shell
 conda activate sampleSheets
