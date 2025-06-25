@@ -41,4 +41,49 @@ bash make_sample_sheet.sh ./data paired
 bash make_sample_sheet.sh ./data single
 ```
 
+**NOTE** Depending on the pipeline you are running, you may need to modify the sample sheet header to include extra fields. This can be easily achieved in `bbedit`, `sublime`, `nano` or your favorite text editor. 
+
+## Fastqc runs
+The [fastqc runs folder](https://github.com/mikemartinez99/Utilitiy_Scripts/tree/main/fastqc_runs) contains two scripts that work in conjunction:
+
+1. run_fastqc.sh
+
+2. make_fastqc_config.sh
+
+The first script is an `SBATCH` driver that internally calls `make_fastqc_config.sh`. By default, after running `multiqc` on a folder of fastqc reports, the sample names are just the regular file names. `make_fastqc_config.sh` maps sample names from your single or paired end sample file (generated in the sample sheet generation code above) and automatically generated a `fastqc_multiqc_config.yaml` file (*which lives in your working directory, NOT the `fastqc_results` directory*)
+`Fastqc` is then run on every raw file and then `multiqc` is ran on the resulting log files using the generated config in verbose mode. 
+
+This code assumes that your fastqc results will always be stored in a folder called `fastqc_results` and that your config will always be called `fastqc_multiqc_config.yaml`.
+
+To run this code, you will need to edit the following variables
+
+1. `DATA_DIR`: path to the raw data folder
+
+2. `OUTPUT_DIR`: path to `fastqc_results` folder
+
+3. `SAMPLESHEET`: Path to sample sheet (either single or paired)
+
+4. `LAYOUT`: one of single or paired
+
+### Implementation
+
+To run this code:
+
+1. copy these two files into your working directory
+
+```shell
+cd <workingDir>
+cp /dartfs-hpc/rc/lab/G/GMBSR_bioinfo/misc/utilities/general_pipeline_utilities/fastqc_runs/* .
+```
+
+2. Modify the variables in the driver script `run_fastq.sh`
+
+3. Submit the script
+
+```shell
+sbatch run_fastqc.sh
+```
+
+
+
 
