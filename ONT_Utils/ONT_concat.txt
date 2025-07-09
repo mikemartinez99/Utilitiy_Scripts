@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#SBATCH --job-name=ONT_Concat
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=8
+#SBATCH --partition=preempt1
+#SBATCH --account=dac
+#SBATCH --time=60:00:00
+#SBATCH --mail-user=f007qps@dartmouth.edu
+#SBATCH --mail-type=FAIL
+#SBATCH --output=ONT_Concat_%j.out
+
+#----- START
+echo -e "#-----------------------------------------------------------#\n"
+echo "Starting job: $SLURM_JOB_NAME (Job ID: $SLURM_JOB_ID)"
+echo "Running on node: $(hostname)"
+echo "Start time: $(date)"
+echo -e "#-----------------------------------------------------------#\n"
+
+#----- Activate conda environment (if any)
+#source /optnfs/common/miniconda3/etc/profile.d/conda.sh
+#conda activate /dartfs-hpc/rc/lab/G/GMBSR_bioinfo/misc/owen/sharedconda/miniconda/envs/seqtk_env
+
+#----- Set input dir (path to passing fastq files)
+DIR=""
+
+cd "$DIR"
+find ./ -name "*pass*fastq.gz" -print0 | xargs -0 zcat > combined_adiS10_adaptive_run1.fastq
